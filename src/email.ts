@@ -13,17 +13,27 @@ export interface EmailOptions {
 export async function sendEmail(options: EmailOptions): Promise<boolean> {
   const env = loadEnvConfig();
 
+  console.log(`📧 Email config: to=${options.to}, from=${options.from}, smtp=${env.smtpHost}:${env.smtpPort}`);
+
+  const isGmail = env.smtpHost.includes('gmail.com');
+  const port = isGmail ? 465 : env.smtpPort;
+
   const transporter = nodemailer.createTransport({
     host: env.smtpHost,
-    port: env.smtpPort,
-    secure: false,
+    port: port,
+    secure: port === 465,
     auth: {
-      user: env.emailFrom,
+      user: env.emailSender || env.emailFrom,
       pass: env.emailPassword,
     },
+    tls: isGmail ? undefined : {
+      rejectUnauthorized: false,
+    },
+    connectionTimeout: 15000,
   });
 
   try {
+    console.log('📧 Attempting to send email...');
     await transporter.sendMail({
       from: options.from,
       to: options.to,
@@ -31,10 +41,10 @@ export async function sendEmail(options: EmailOptions): Promise<boolean> {
       html: options.html,
     });
 
-    console.log(`Email sent to ${options.to}`);
+    console.log(`✅ Email sent to ${options.to}`);
     return true;
-  } catch (error) {
-    console.error('Error sending email:', error);
+  } catch (error: any) {
+    console.error('❌ Error sending email:', error?.message || error);
     return false;
   }
 }

@@ -33,6 +33,7 @@ export interface EnvConfig {
   openaiApiKey: string;
   emailTo: string;
   emailFrom: string;
+  emailSender: string;
   emailPassword: string;
   smtpHost: string;
   smtpPort: number;
@@ -59,10 +60,11 @@ export function loadEnvConfig(): EnvConfig {
     geminiApiKey: process.env.GEMINI_API_KEY || '',
     openaiApiKey: process.env.OPENAI_API_KEY || '',
     emailTo: process.env.EMAIL_TO || '',
-    emailFrom: process.env.EMAIL_FROM || '',
+    emailFrom: process.env.EMAIL_FROM || process.env.EMAIL_SENDER || '',
+    emailSender: process.env.EMAIL_SENDER || process.env.EMAIL_FROM || '',
     emailPassword: process.env.EMAIL_PASSWORD || '',
     smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
-    smtpPort: parseInt(process.env.SMTP_PORT || '587', 10),
+    smtpPort: parseInt(process.env.SMTP_PORT || '465', 10),
   };
 
   return envConfig;
