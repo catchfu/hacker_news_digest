@@ -1,0 +1,37 @@
+period: 24h
+articles_per_category: 5
+
+categories:
+  tech:
+    - ML
+    - AI
+    - LLMs
+    - Coding
+    - Systems
+  startup:
+    - Startup
+    - Funding
+    - Product
+    - Growth
+
+rss_sources:
+  hn:
+    - https://hnrss.org/frontpage
+    - https://hnrss.org/newest
+    - https://hnrss.org/ask
+    - https://hnrss.org/show
+  x:
+    - https://rss-bridge.org/bridge01/?action=display&bridge=TwitterBridge&context=By+user&u=karpathy&format=Atom
+  custom:
+    - https://youmind.com/rss/pack/andrej-karpathy-curated-rss
+    - https://rss.app/feeds/tZ1m8YjB5c4oRxvM
+    - https://www.technologyreview.com/feed/
+
+email:
+  smtp_host: smtp.gmail.com
+  smtp_port: 587
+
+llm:
+  provider: gemini
+  model: gemini-2.0-flash
+  openai_model: gpt-4o-mini
