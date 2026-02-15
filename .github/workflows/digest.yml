@@ -44,6 +44,8 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST || 'smtp.gmail.com' }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
         run: |
           if [ "${{ github.event.inputs.period }}" != "" ]; then
             npm start -- --period ${{ github.event.inputs.period }} --articles ${{ github.event.inputs.articles }} --send-email
