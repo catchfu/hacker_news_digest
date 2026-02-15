@@ -47,11 +47,8 @@ jobs:
           SMTP_HOST: ${{ secrets.SMTP_HOST || 'smtp.gmail.com' }}
           SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
         run: |
-          if [ "${{ github.event.inputs.period }}" != "" ]; then
-            npm start -- --period ${{ github.event.inputs.period }} --articles ${{ github.event.inputs.articles }} --send-email
-          else
-            npm start -- --send-email
-          fi
+          echo "Email config: TO=$EMAIL_TO, FROM=$EMAIL_FROM, SMTP=$SMTP_HOST:$SMTP_PORT"
+          npm start -- --send-email
           
       - name: Upload digest artifact
         uses: actions/upload-artifact@v4
