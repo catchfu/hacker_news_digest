@@ -54,6 +54,11 @@ export async function sendDigestEmail(reportData: ReportData): Promise<boolean> 
   const html = toHtml(reportData);
   const date = new Date().toISOString().split('T')[0];
 
+  console.log('DEBUG: Email TO:', env.emailTo);
+  console.log('DEBUG: Email FROM:', env.emailFrom);
+  console.log('DEBUG: SMTP Host:', env.smtpHost);
+  console.log('DEBUG: SMTP Port:', env.smtpPort);
+
   return sendEmail({
     to: env.emailTo,
     from: env.emailFrom,
